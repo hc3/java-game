@@ -12,5 +12,5 @@ package firstgame;
 public enum ID {
     
     Player(),
-    Enemy()
+    BasicEnemy()
 }
