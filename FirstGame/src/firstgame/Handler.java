@@ -7,24 +7,20 @@ import java.util.List;
 
 public class Handler {
     
-    List<GameObject> listObject= new LinkedList<GameObject>();
+    List<GameObject> listObject = new LinkedList<>();
     
-    public void tick() {
-        int index = 0;     
-        for(GameObject elemento: listObject) {
-            GameObject tempObject = listObject.get(index);
+    public void tick() {     
+        //listObject.stream().map((elemento) -> elemento).forEachOrdered((tempObject) -> tempObject.tick());
+        //listObject.stream().forEach(el -> el.tick());
+        for(int i = 0; i < listObject.size(); i++) {
+            GameObject tempObject = listObject.get(i);
+            
             tempObject.tick();
-            index++;
         }
     }
     
     public void render(Graphics g) {
-        int index = 0; 
-        for(GameObject elemento: listObject) {
-            GameObject tempObject = listObject.get(index);
-            tempObject.render(g);
-            index++;
-        }
+        listObject.stream().map((elemento) -> elemento).forEachOrdered((tempObject) -> tempObject.render(g));
     }
     public void addObject(GameObject object) {
         this.listObject.add(object);

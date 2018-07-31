@@ -1,22 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package firstgame;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-/**
- *
- * @author Analista de Vendas
- */
-public class BasicEnemy extends GameObject{
 
-    public BasicEnemy(Integer x, Integer y, ID id) {
+public class BasicEnemy extends GameObject {
+    
+    private Handler handler;
+
+    public BasicEnemy(Integer x, Integer y, ID id, Handler handler) {
         super(x, y, id);
+        
+        this.handler = handler;
         
         velX = 5;
         velY = 5;
@@ -28,6 +24,8 @@ public class BasicEnemy extends GameObject{
        
        if(y <= 0 || y >= Game.HEIGHT - 32) velY *= -1; // parece com o lance do barrado de sistemas digitais;
        if(x <= 0 || x >= Game.WIDTH - 16) velX *= -1;
+       
+       handler.addObject(new Trail(x, y, ID.Trail, 16, 16, 0.01f, Color.yellow, handler));
     }
 
     public void render(Graphics g) {
@@ -37,7 +35,7 @@ public class BasicEnemy extends GameObject{
 
     @Override
     public Rectangle getBounds() {
-        return null;
+        return new Rectangle(x, y, 16, 16);
     }
     
 }

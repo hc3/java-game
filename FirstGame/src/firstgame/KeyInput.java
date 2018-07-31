@@ -14,50 +14,63 @@ import java.awt.event.KeyEvent;
  */
 public class KeyInput extends KeyAdapter {
 
-    private Handler handler;
+    private final Handler handler;
 
     public KeyInput(Handler handler) {
         this.handler = handler;
     }
 
     public void keyPressed(KeyEvent e) {
-        int key = e.getKeyCode();
-        int index = 0;
-        
-        for(GameObject object: handler.listObject) {
-            GameObject tempObject = handler.listObject.get(index);
-            
-            if(tempObject.getId() == ID.Player) {
-                
-                if(key == KeyEvent.VK_W) tempObject.setVelY(-5);
-                if(key == KeyEvent.VK_S) tempObject.setVelY(5);
-                if(key == KeyEvent.VK_D) tempObject.setVelX(5);
-                if(key == KeyEvent.VK_A) tempObject.setVelX(-5);
-                
-            }
-        }
+        handler.listObject.stream().forEach(el -> getKeyPressed(e.getKeyCode(), el, 5));
+    }
 
+    private void getKeyPressed(int key, GameObject tempObject, int value) {
+        if (tempObject.getId() == ID.Player) {
+
+            if (key == KeyEvent.VK_W) {
+                tempObject.setVelY(value * -1);
+            }
+            if (key == KeyEvent.VK_S) {
+                tempObject.setVelY(value);
+            }
+            if (key == KeyEvent.VK_D) {
+                tempObject.setVelX(value);
+            }
+            if (key == KeyEvent.VK_A) {
+                tempObject.setVelX(value * -1);
+            }
+
+        }
     }
 
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
-        int index = 0;
-        
-        for(GameObject object: handler.listObject) {
-            GameObject tempObject = handler.listObject.get(index);
-            
-            if(tempObject.getId() == ID.Player) {
-                
-                if(key == KeyEvent.VK_W) tempObject.setVelY(0);
-                if(key == KeyEvent.VK_S) tempObject.setVelY(0);
-                if(key == KeyEvent.VK_D) tempObject.setVelX(0);
-                if(key == KeyEvent.VK_A) tempObject.setVelX(0);
-                
-            }
+
+        handler.listObject.stream().forEach(el -> getKeyReleased(key, el, 0));
+
+        if (key == KeyEvent.VK_ESCAPE) {
+            System.exit(1);
         }
-        
-        if(key == KeyEvent.VK_ESCAPE) System.exit(1);
-                
+
+    }
+
+    private void getKeyReleased(int key, GameObject tempObject, int value) {
+        if (tempObject.getId() == ID.Player) {
+
+            if (key == KeyEvent.VK_W) {
+                tempObject.setVelY(value);
+            }
+            if (key == KeyEvent.VK_S) {
+                tempObject.setVelY(value);
+            }
+            if (key == KeyEvent.VK_D) {
+                tempObject.setVelX(value);
+            }
+            if (key == KeyEvent.VK_A) {
+                tempObject.setVelX(value);
+            }
+
+        }
     }
 
 }
