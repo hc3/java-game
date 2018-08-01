@@ -25,7 +25,7 @@ public class BasicEnemy extends GameObject {
        if(y <= 0 || y >= Game.HEIGHT - 32) velY *= -1; // parece com o lance do barrado de sistemas digitais;
        if(x <= 0 || x >= Game.WIDTH - 16) velX *= -1;
        
-       handler.addObject(new Trail(x, y, ID.Trail, 16, 16, 0.01f, Color.yellow, handler));
+       handler.addObject(new Trail(x, y, ID.Trail, 16, 16, 0.05f, Color.red, handler));
     }
 
     public void render(Graphics g) {
